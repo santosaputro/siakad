@@ -25,14 +25,13 @@
     </div>
 
     <div class="form-group row">
-      <label for="kelas" class="col-sm-2 col-form-label">Kelas</label>
+      <label for="id_kelas" class="col-sm-2 col-form-label">Kelas</label>
       <div class="col-sm-4">
-        <!-- <input type="text" class="form-control" id="kelas" name="kelas" value="<?php echo $kelas; ?>"> -->
         <div class="form-group">
-          <select class="form-control" id="kelas" name="kelas">
+          <select class="form-control" id="id_kelas" name="id_kelas">
             <option>--pilih kelas--</option>
             <?php foreach ($kelas as $data) : ?>
-            <option value="<?php echo $data->nama_ruang; ?>"><?php echo $data->nama_ruang; ?></option>
+            <option value="<?php echo $data->id_kelas; ?>"><?php echo $data->nama_ruang; ?></option>
             <?php endforeach; ?>
           </select>
         </div>

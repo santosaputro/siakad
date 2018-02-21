@@ -11,5 +11,7 @@
     <a class="dropdown-item" href="<?php echo base_url('dashboard/siswa'); ?>">siswa</a>
     <a class="dropdown-item" href="<?php echo base_url('dashboard/guru'); ?>">guru</a>
     <a class="dropdown-item" href="<?php echo base_url('dashboard/jadwalPelajaran'); ?>">jadwal pelajaran</a>
+    <a class="dropdown-item" href="<?php echo base_url('dashboard/nilaiSiswa'); ?>">nilai siswa</a>
+    <a class="dropdown-item" href="<?php echo base_url('dashboard/test'); ?>">TEST</a>
   </div>
 </div>

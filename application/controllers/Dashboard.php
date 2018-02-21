@@ -270,7 +270,7 @@ class Dashboard extends CI_Controller {
         $data['nis']          = $row->nis;
         $data['nama_siswa']   = $row->nama_siswa;
         $data['password']     = $row->password;
-        $data['kelas']        = $row->kelas;
+        $data['id_kelas']     = $row->id_kelas;
         $data['alamat']       = $row->alamat;
       }
 
@@ -280,7 +280,6 @@ class Dashboard extends CI_Controller {
       $data['nis']          = '';
       $data['nama_siswa']	  = '';
       $data['password']			= '';
-      // $data['kelas']			  = '';
       $data['alamat']			  = '';
     }
 
@@ -330,7 +329,7 @@ class Dashboard extends CI_Controller {
       'nis'           => $this->input->post('nis'),
       'nama_siswa'    => $this->input->post('nama_siswa'),
       'password'      => $this->input->post('password'),
-      'kelas'        => $this->input->post('kelas'),
+      'id_kelas'      => $this->input->post('id_kelas'),
       'alamat'        => $this->input->post('alamat')
     );
 
@@ -606,5 +605,36 @@ class Dashboard extends CI_Controller {
         $this->session->set_flashdata('info','<div class="alert alert-success" role="alert">Data berhasil ditambah</div>');
       }
       redirect('dashboard/jadwalPelajaran');
+    }
+
+    // Delete
+    public function deleteJadwalPelajaran() {
+
+      $key    = $this->uri->segment(3);
+      $query  = $this->mymodel->getWhereJadwal($key);
+      if($query->num_rows()>0)
+      {
+        $this->mymodel->deleteJadwal($key);
+        $this->session->set_flashdata('info','<div class="alert alert-warning" role="alert">Data berhasil dihapus</div>');
+      }
+      redirect('dashboard/jadwalPelajaran');
+    }
+
+    public function nilaiSiswa() {
+      $data['sidebar']  = 'content/sidebar';
+      $data['content']  = 'content/nilaiSiswa';
+      $data['kelas']    = json_encode($this->mymodel->getKelas()->result());
+      $data['getNilai']  = json_encode($this->mymodel->getNilai()->result());
+
+      $this->load->view('layout/dashboard', $data);
+
+    }
+
+    public function test() {
+      $data['sidebar']  = 'content/sidebar';
+      $data['content']  = 'content/test';
+      $data['nilai']  = $this->mymodel->testNilai()->result();
+
+      $this->load->view('layout/dashboard', $data);
     }
 }

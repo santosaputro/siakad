@@ -1,5 +1,5 @@
 <h1>Siswa</h1>
-<?php echo $this->session->flashdata('info'); ?><br>
+<!-- <?php echo $this->session->flashdata('info'); ?><br> -->
 <a href="<?php echo base_url('dashboard/tambahSiswa') ?>" class="btn btn-primary">Tambah Siswa</a>
 <br><br>
 <table class="table table-bordered">
@@ -17,7 +17,7 @@
     <td><?php echo $no++; ?></td>
     <td><?php echo $data->nis; ?></td>
     <td><?php echo $data->nama_siswa; ?></td>
-    <td><?php echo $data->kelas; ?></td>
+    <td><?php echo $data->nama_ruang; ?></td>
     <td><?php echo $data->alamat; ?></td>
     <td><?php echo $data->last_update; ?></td>
     <td>

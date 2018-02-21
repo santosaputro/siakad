@@ -67,7 +67,14 @@ class Mymodel extends CI_Model {
   /* Siswa method */
   	// show siswa
   	public function getSiswa() {
-  		return $this->db->get('siswa');
+      $this->db->select('*');
+      $this->db->from('kelas');
+      $this->db->join('siswa', 'siswa.id_kelas = kelas.id_kelas');
+      return $this->db->get();
+  	}
+  	// show siswa
+  	public function getOldSiswa() {
+      return $this->db->get('siswa');
   	}
 
   	// get where siswa
@@ -156,8 +163,24 @@ class Mymodel extends CI_Model {
   	}
 
   	// delete Jadwal Pelajaran
-  	// public function deleteJadwal($key) {
-  	//  	$this->db->where('id_guru',$key);
-  	// 	$this->db->delete('guru');
-  	// }
+  	public function deleteJadwal($key) {
+  	 	$this->db->where('id_jadwal',$key);
+  		$this->db->delete('jadwal_pelajaran');
+  	}
+
+  // Nilai Siswa
+    // show Nilai Siswa
+  	public function getNilai() {
+  		$this->db->select('*');
+      $this->db->from('siswa');
+      $this->db->join('kelas', 'kelas.id_kelas = siswa.id_kelas');
+      $this->db->join('nilai_siswa', 'nilai_siswa.id_siswa = siswa.id_siswa');
+      return $this->db->get();
+  	}
+
+
+    // test ---------------------------------------------
+    public function testNilai() {
+      return $this->db->get('testNilai');
+    }
 }
