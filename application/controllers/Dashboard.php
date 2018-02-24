@@ -620,6 +620,8 @@ class Dashboard extends CI_Controller {
       redirect('dashboard/jadwalPelajaran');
     }
 
+  // Nilai Siswa Fuction
+    // Show
     public function nilaiSiswa() {
       $data['sidebar']  = 'content/sidebar';
       $data['content']  = 'content/nilaiSiswa';
@@ -630,10 +632,52 @@ class Dashboard extends CI_Controller {
 
     }
 
+    // Save
+    public function saveNilaiSiswa()
+    {
+      $data = array(
+        'id_nilai'       => $this->input->post('id_nilai'),
+        'id_siswa'        => $this->input->post('id_siswa'),
+        'id_kelas'        => $this->input->post('id_kelas'),
+        'efektif'            => $this->input->post('efektif'),
+        'komulatif'   => $this->input->post('komulatif'),
+        'psikomotorik'         => $this->input->post('psikomotorik'),
+        'jumlah'         => $this->input->post('efektif') + $this->input->post('komulatif') + $this->input->post('psikomotorik')
+      );
+
+      $key    = $this->input->post('id_nilai');
+      $query  = $this->mymodel->getWhereNilai($key);
+
+      if ($query->num_rows()>0) {
+        $this->mymodel->updateNilaiSiswa($key,$data);
+        $this->session->set_flashdata('info','<div class="alert alert-success" role="alert">Data berhasil diupdate</div>');
+      } else {
+        $this->mymodel->addNilaiSiswa($data);
+        $this->session->set_flashdata('info','<div class="alert alert-success" role="alert">Data berhasil ditambah</div>');
+      }
+      redirect('dashboard/nilaiSiswa');
+    }
+
+    // Delete
+    public function deleteNilaiSiswa() {
+
+      $key    = $this->uri->segment(3);
+      $query  = $this->mymodel->getWhereNilai($key);
+      if($query->num_rows()>0)
+      {
+        $this->mymodel->deleteNilaiSiswa($key);
+        $this->session->set_flashdata('info','<div class="alert alert-warning" role="alert">Data berhasil dihapus</div>');
+      }
+      redirect('dashboard/nilaiSiswa');
+    }
+
+
+// TEST FUNCTION
     public function test() {
       $data['sidebar']  = 'content/sidebar';
       $data['content']  = 'content/test';
       $data['nilai']  = $this->mymodel->testNilai()->result();
+      $data['nilaia']  = json_encode($this->mymodel->getNilai()->result());
 
       $this->load->view('layout/dashboard', $data);
     }

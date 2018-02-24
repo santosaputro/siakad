@@ -178,6 +178,33 @@ class Mymodel extends CI_Model {
       return $this->db->get();
   	}
 
+    // get where Nilai Siswa
+  	public function getWhereNilai($key) {
+  		$this->db->select('*');
+      $this->db->where('id_nilai', $key);
+      $this->db->from('siswa');
+      $this->db->join('kelas', 'kelas.id_kelas = siswa.id_kelas');
+      $this->db->join('nilai_siswa', 'nilai_siswa.id_siswa = siswa.id_siswa');
+      return $this->db->get();
+  	}
+
+  	// insert Nilai Siswa
+  	public function addNilaiSiswa($data) {
+  		$this->db->insert('nilai_siswa', $data);
+  	}
+
+  	// update Nilai Siswa
+  	public function updateNilaiSiswa($key, $data) {
+  		$this->db->where('id_nilai', $key);
+  		$this->db->update('nilai_siswa', $data);
+  	}
+
+  	// delete Nilai Siswa
+  	public function deleteNilaiSiswa($key) {
+  	 	$this->db->where('id_nilai',$key);
+  		$this->db->delete('nilai_siswa');
+  	}
+
 
     // test ---------------------------------------------
     public function testNilai() {
